@@ -1,4 +1,5 @@
 import sys
+from nltk.tokenize import word_tokenize
 
 print("This program generates random sentences based on an Ngram model.")
 for x in range(len(sys.argv[1:])):
@@ -11,9 +12,10 @@ for x in range(len(sys.argv[1:])):
     else:
         print("File no."+ str(x-1)+"= "+ sys.argv[x+1])
 
-files = []
-for y in range(2,x+1):
+#reading all the files and extracting tokens
+tokens=[]
+for y in range(2,len(sys.argv[1:])):
     with open(sys.argv[y+1]) as f_open:
-        files.append(f_open.read())
-    
-print(files)
+        tokens.extend(word_tokenize(f_open.read()))
+
+print(tokens)
