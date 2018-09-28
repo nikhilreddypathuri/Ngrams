@@ -1,5 +1,8 @@
 import sys
+from nltk.probability import FreqDist
 from nltk.tokenize import word_tokenize
+from random import random
+import numpy as np
 
 print("This program generates random sentences based on an Ngram model.")
 for x in range(len(sys.argv[1:])):
@@ -16,6 +19,89 @@ for x in range(len(sys.argv[1:])):
 tokens=[]
 for y in range(2,len(sys.argv[1:])):
     with open(sys.argv[y+1]) as f_open:
-        tokens.extend(word_tokenize(f_open.read()))
+        tokens.extend(word_tokenize(f_open.read().lower()))
 
-print(tokens)
+#print(len(tokens))
+#print(len(set(tokens)))
+
+fdist = FreqDist(tokens)
+#print(fdist)
+
+end = ['.','!','?']
+start = []
+
+count =0
+for word in tokens:
+    if(word=="." or word=="!" or word=="?"):
+        if(count== len(tokens)-1):
+            break
+        start.append(tokens[count+1])
+    count+=1
+
+start = set(start)
+#print(start)
+
+#add start to freqdist
+count = 0
+for key,value in fdist.items():
+    for word in start:
+        if(key==word):
+            count= count+ value
+#print(count)
+fdist["<start>"]= count
+
+#add end to freqdist
+count = 0
+for key,value in fdist.items():
+    for word in end:
+        if(key==word):
+            count= count+ value
+#print(count)
+fdist["<end>"]= count
+
+#create probability distribution
+
+probdist={}
+for key,value in fdist.items():
+    probdist[key]=value/len(tokens)
+
+#probdist 
+
+#create normal prob dist
+
+normprobdist={}
+sum=0
+for key,value in probdist.items():
+    sum=sum+value
+for key,value in probdist.items():
+    normprobdist[key]= value/sum
+#normprobdist    
+
+#create interval prob dist
+
+lineprobdist={}
+sum=0
+for key,value in normprobdist.items():
+    lineprobdist[key]=sum
+    sum=sum+value
+#lineprobdist
+
+#1gram model
+
+start_c=1
+end_c=0
+
+while(end_c==0):
+    rand = random()
+    if(start_c==1):
+            line= np.random.choice(list(start))
+            start_c=0
+    for key,value in lineprobdist.items():
+        if(rand<value):
+            if(key=="<end>"):
+                key = np.random.choice(list(end))
+                end_c=1
+            line=line+" "+key
+            break
+        
+print(line)              
