@@ -18,7 +18,7 @@ for x in range(len(sys.argv[1:])):
 #reading all the files and extracting tokens
 tokens=[]
 for y in range(2,len(sys.argv[1:])):
-    with open(sys.argv[y+1]) as f_open:
+    with open(sys.argv[y+1],encoding="latin-1") as f_open:
         tokens.extend(word_tokenize(f_open.read().lower()))
 
 #print(len(tokens))
@@ -41,6 +41,14 @@ for word in tokens:
 start = set(start)
 #print(start)
 
+#remove end tokens from start
+t_start=[]
+for word in start:
+    if word in end:
+        continue
+    t_start.append(word)
+start = t_start
+
 #add start to freqdist
 count = 0
 for key,value in fdist.items():
@@ -59,10 +67,19 @@ for key,value in fdist.items():
 #print(count)
 fdist["<end>"]= count
 
+#remove start and end tokens
+fdist2 = {}
+for key,value in fdist.items():
+    if key in end: continue
+    elif key in start: continue
+    fdist2[key]= value
+
+fdist2
+
 #create probability distribution
 
 probdist={}
-for key,value in fdist.items():
+for key,value in fdist2.items():
     probdist[key]=value/len(tokens)
 
 #probdist 
@@ -82,9 +99,8 @@ for key,value in probdist.items():
 lineprobdist={}
 sum=0
 for key,value in normprobdist.items():
-    lineprobdist[key]=sum
     sum=sum+value
-#lineprobdist
+    lineprobdist[key]=sum
 
 #1gram model
 for x in range(int(sentences)):
@@ -98,7 +114,9 @@ for x in range(int(sentences)):
             start_c=0
         for key,value in lineprobdist.items():
             if(rand<value):
-                if(key=="<end>"):
+                if(key=="<start>"):
+                    key = np.random.choice(list(start))
+                elif(key=="<end>"):
                     key = np.random.choice(list(end))
                     end_c=1
                 line=line+" "+key
