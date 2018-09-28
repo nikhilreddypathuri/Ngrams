@@ -87,21 +87,22 @@ for key,value in normprobdist.items():
 #lineprobdist
 
 #1gram model
-
-start_c=1
-end_c=0
-
-while(end_c==0):
-    rand = random()
-    if(start_c==1):
-            line= np.random.choice(list(start))
+for x in range(int(sentences)):
+    start_c=1
+    end_c=0
+    line="Sentence "+str(x+1)+" :"
+    while(end_c==0):
+        rand = random()
+        if(start_c==1):
+            line= line+" "+np.random.choice(list(start))
             start_c=0
-    for key,value in lineprobdist.items():
-        if(rand<value):
-            if(key=="<end>"):
-                key = np.random.choice(list(end))
-                end_c=1
-            line=line+" "+key
-            break
+        for key,value in lineprobdist.items():
+            if(rand<value):
+                if(key=="<end>"):
+                    key = np.random.choice(list(end))
+                    end_c=1
+                line=line+" "+key
+                break
         
-print(line)              
+    print(line)              
+
