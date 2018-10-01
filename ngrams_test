@@ -154,6 +154,7 @@ else:
 
     # compute n-1 table frequencies
     fdist_n1 = FreqDist(tokens_n1)
+    print("fdist_n1 success")
     
     #create n gram tokens
     if(ngrams>1):
@@ -174,27 +175,24 @@ else:
 
     #compute n table frequency
     fdist_n = FreqDist(tokens_n)
-
+    print("fdist_n success")
     #create n freq table
     d = {}
     df = pd.DataFrame(data=d, index=set(tokens_n1),columns=set(tokens))
 
     #create n gram data frame indicating probabilities with laplace smoothing
     prob = 0
-    
+    len_tokens = len(set(tokens))
+    print(len_tokens)
     for rows in df.index.values:
         for cols in df.columns.values:
             line = str(rows)+" "+str(cols)
-            found = 0
-            for key,value in fdist_n.items():
-                if(line==key and found==0):
-                    prob=(value+1)/(fdist_n1[rows]+len(set(tokens)))
-                    found =1
-                    break
-            if(found == 0):
-                prob=1/(fdist_n1[rows]+len(set(tokens)))
+            # print(line)
+            prob=(fdist_n[line]+1)/(fdist_n1[rows]+len_tokens)
+            #the below function is taking lot of time
             df.loc[rows,cols]=prob
     
     print(df.iloc[1,1])
+
 
 print("finished")
