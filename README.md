@@ -1,11 +1,11 @@
 # Ngrams
 
- Team name: Evil Geniuses
- Authors:
- Vijayasaradhi Muthavarapu (Vijay)
- Nikhil Reddy Pathuri (Nikhil)
- Dilip Molugu (Dilip)
- Date: 10/03/2018
+# Team name: Evil Geniuses
+# Authors:
+# Vijayasaradhi Muthavarapu (Vijay)
+# Nikhil Reddy Pathuri (Nikhil)
+# Dilip Molugu (Dilip)
+# Date: 10/03/2018
 
  1. This program implements the concept of ngrams to know the dependencies for each word with their next word in a document. After it trains from the document the program is# capable of creating sentences by its own.
 
