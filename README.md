@@ -16,17 +16,28 @@
  An example to run this program:
  >python ngram.py 3 2 text1.txt text2.txt text3.txt
  
- Sample Output: 
+ Sample Output:
+ 
  Ngrams = 3
+ 
  Number of Sentences = 2
+ 
  File no. 1= text1.txt
+ 
  File no. 2= text2.txt
+ 
  File no. 3= text3.txt
+ 
  n-1 table created
+ 
  n table created
+ 
  Laplace prob table created
+ 
  starting to print...
+ 
  Sentence 1: they did indeed advance , or from their pulpits as were true sons of religion and shadowy echoes of literature lived on later into the words and loyalty on later into the clergy , in england .
+ 
  Sentence 2: if one more characteristic thought of time like faint and the world .
 
  3. About our code and algorithm:
