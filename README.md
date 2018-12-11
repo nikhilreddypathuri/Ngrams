@@ -15,6 +15,7 @@
    -> From the third argument you need to pass the text files that you want to make the model train on. You can also pass multiple text files as additional arguments to train the model.
  An example to run this program:
  >python ngram.py 3 2 text1.txt text2.txt text3.txt
+ 
  Sample Output: 
  Ngrams = 3
  Number of Sentences = 2
