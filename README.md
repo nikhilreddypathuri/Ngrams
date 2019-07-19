@@ -7,7 +7,7 @@
 # Dilip Molugu (Dilip)
 # Date: 10/03/2018
 
- 1. This program implements the concept of ngrams to know the dependencies for each word with their next word in a document. After it trains from the document the program is# capable of creating sentences by its own.
+ 1. This program implements the concept of ngrams to know the dependencies for each word with their next word in a document. After it trains from the document the program is capable of creating sentences by its own.
 
  2. Inorder to make this program work first we need to install the required libraries. Then in the command line arguments you need to pass a minimum of 3 arguments. 
    -> The first argument should be the value of n to determine which ngram model to use.
